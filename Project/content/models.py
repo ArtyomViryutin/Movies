@@ -9,10 +9,16 @@ class Genre(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=30, unique=True)
 
+    class Meta:
+        ordering = ('-id',)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=30, unique=True)
+
+    class Meta:
+        ordering = ('-id',)
 
 
 class Title(models.Model):
@@ -35,9 +41,16 @@ class Review(models.Model):
     score = models.IntegerField(validators=[validate_score])
     pub_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('pub_date',)
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
     text = models.CharField(max_length=300)
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('pub_date',)
+
